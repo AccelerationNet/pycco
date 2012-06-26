@@ -308,13 +308,20 @@ languages = {
         "multistart": "{-", "multiend": "-}"},
 
     ".lisp": { "name": "common-lisp", "symbol": ";",
-        "multistart": "#|", "multiend": "|#"},
+               "multistart": "#|", "multiend": "|#",
+               "consumeConsectutiveSymbols":True
+               },
 }
 
 # Build out the appropriate matchers and delimiters for each language.
 for ext, l in languages.items():
     # Does the line begin with a comment?
-    l["comment_matcher"] = re.compile(r"^\s*(" + l["symbol"] + ")+\s?")
+    if l.get("consumeConsectutiveSymbols", False):
+        # we should consume all the comment symbols we see
+        l["comment_matcher"] = re.compile(r"^\s*(" + l["symbol"] + ")+\s?")
+    else:
+        l["comment_matcher"] = re.compile(r"^\s*" + l["symbol"] + "\s?")
+
 
     # The dividing token we feed into Pygments, to delimit the boundaries between
     # sections.
