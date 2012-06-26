@@ -314,7 +314,7 @@ languages = {
 # Build out the appropriate matchers and delimiters for each language.
 for ext, l in languages.items():
     # Does the line begin with a comment?
-    l["comment_matcher"] = re.compile(r"^\s*" + l["symbol"] + "\s?")
+    l["comment_matcher"] = re.compile(r"^\s*(" + l["symbol"] + ")+\s?")
 
     # The dividing token we feed into Pygments, to delimit the boundaries between
     # sections.
