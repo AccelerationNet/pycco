@@ -294,7 +294,7 @@ languages = {
         "multistart": "=begin", "multiend": "=end"},
 
     ".py": { "name": "python", "symbol": "#",
-        "multistart": '"""', "multiend": '"""' },
+             "consumeConsectutiveSymbols":True },
 
     ".scm": { "name": "scheme", "symbol": ";;",
         "multistart": "#|", "multiend": "|#"},
